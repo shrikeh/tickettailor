@@ -1,0 +1,5 @@
+controllers:
+    resource:
+        path: ../src/Api/Http/Action/
+        namespace: Api\Http\Action
+    type: attribute

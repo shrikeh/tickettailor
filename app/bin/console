@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+use Api\Console\Kernel;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+
+if (!defined('APPLICATION_ROOT_DIR')) {
+  define('APPLICATION_ROOT_DIR', dirname(__DIR__, 2));
+}
+
+if (!is_dir(APPLICATION_ROOT_DIR . '/vendor')) {
+    throw new LogicException('Dependencies are missing. Try running "composer install".');
+}
+
+if (!is_file(APPLICATION_ROOT_DIR.'/vendor/autoload_runtime.php')) {
+    throw new LogicException('Symfony Runtime is missing. Try running "composer require symfony/runtime".');
+}
+
+require_once APPLICATION_ROOT_DIR .'/vendor/autoload_runtime.php';
+
+return function (array $context) {
+    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+
+    return new Application($kernel);
+};
