@@ -80,7 +80,7 @@
     }
   },
   "scripts": {
-    "run": [
+    "demo": [
       "app/bin/console ticket-tailor:webhooks:call"
     ],
     "post-install-cmd": [

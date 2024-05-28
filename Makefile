@@ -46,4 +46,4 @@ craft: .crafting .craft
 
 run:
 	$(info [+] Make: Running command `ticket-tailor:webhooks:call` inside Docker container)
-	docker compose run "${APP_CONTAINER}";
+	docker compose run --rm "${APP_CONTAINER}";
