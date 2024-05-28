@@ -32,9 +32,13 @@ final readonly class CallOutstandingWebhooks implements CommandHandler
             OutstandingWebhooksQuery::init()->withCorrelation($command->correlated())
         );
 
-        $result = $this->commandBus->handle((new CallWebhooks())->withCorrelation(
-            $outstandingWebhooks->correlated(),
-        ));
+        /** @var OutstandingWebhooksCalled */
+        return $this->commandBus->handle(
+            (new CallWebhooks($outstandingWebhooks->webhooks))
+                ->withCorrelation(
+                    $outstandingWebhooks->correlated(),
+                )
+        );
     }
 
     private function logStart(CallOutstandingWebhooksCommand $command): void

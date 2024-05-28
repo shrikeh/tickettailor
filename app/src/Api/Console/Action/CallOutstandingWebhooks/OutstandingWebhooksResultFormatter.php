@@ -14,6 +14,6 @@ final readonly class OutstandingWebhooksResultFormatter implements ResultOutputF
 
     public function render(?Result $result, InputInterface $input, OutputInterface $output): void
     {
-        // TODO: Implement render() method.
+        var_dump($result);
     }
 }

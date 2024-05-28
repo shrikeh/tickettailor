@@ -27,7 +27,7 @@ final readonly class WebhooksFile implements NotificationsRepository
         foreach ($this->getOrders() as $order) {
             $cleaned = iterator_to_array($this->cleanupOrder($order));
 
-            yield $cleaned['ORDER ID'] => new Uri($cleaned['URL']);
+            yield (int) $cleaned['ORDER ID'] => new Uri($cleaned['URL']);
         }
     }
 
