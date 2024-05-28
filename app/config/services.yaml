@@ -23,8 +23,13 @@ services:
   Api\:
     resource: '%kernel.project_dir%/src/Api'
 
-  Shrikeh\App\Bus\SymfonyCommandBus: ~
-  Shrikeh\App\Bus\SymfonyQueryBus: ~
+  Shrikeh\App\Bus\SymfonyCommandBus:
+    arguments:
+      - '@app.correlating_command_bus'
+
+  Shrikeh\App\Bus\SymfonyQueryBus:
+    arguments:
+      - '@app.correlating_query_bus'
   
   Shrikeh\App\Logger\Psr3AppLogger: ~
   Shrikeh\App\Log: '@Shrikeh\App\Logger\Psr3AppLogger'
@@ -32,9 +37,6 @@ services:
   Shrikeh\App\Bus\MessageBus: '@Shrikeh\App\Bus\CorrelatingMessageBus'
   Shrikeh\App\Command\CommandBus: '@Shrikeh\App\Bus\SymfonyCommandBus'
   Shrikeh\App\Query\QueryBus: '@Shrikeh\App\Bus\SymfonyQueryBus'
-  
-  Shrikeh\App\Bus\CorrelatingMessageBus: ~
-  
           
   Infra\Repository\WebhooksFile:
     arguments:
@@ -48,7 +50,17 @@ services:
   _instanceof:
     Shrikeh\App\Query\QueryHandler:
       tags:
-        - { name: messenger.message_handler, bus: 'query.bus' }
+        - { name: messenger.message_handler, bus: query.bus }
     Shrikeh\App\Command\CommandHandler:
       tags:
-        - { name: messenger.message_handler, bus: 'command.bus' }  
+        - { name: messenger.message_handler, bus: command.bus }  
+  
+  app.correlating_command_bus:
+    class: Shrikeh\App\Bus\CorrelatingMessageBus
+    arguments:
+      - '@command.bus'
+
+  app.correlating_query_bus:
+    class: Shrikeh\App\Bus\CorrelatingMessageBus
+    arguments:
+      - '@query.bus'

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use App\Command\CallOutstandingWebhooks as CallOutstandingWebhooksCommand;
+use App\Command\CallWebhooks;
 use App\Query\OutstandingWebhooks as OutstandingWebhooksQuery;
 use App\Result\OutstandingWebhooks as OutstandingWebhooksResult;
 use App\Result\OutstandingWebhooksCalled;
@@ -31,7 +32,9 @@ final readonly class CallOutstandingWebhooks implements CommandHandler
             OutstandingWebhooksQuery::init()->withCorrelation($command->correlated())
         );
 
-        $result = $this->commandBus->handle();
+        $result = $this->commandBus->handle((new CallWebhooks())->withCorrelation(
+            $outstandingWebhooks->correlated(),
+        ));
     }
 
     private function logStart(CallOutstandingWebhooksCommand $command): void

@@ -8,7 +8,6 @@ use App\Traits\WithCorrelation;
 use Generator;
 use Psr\Http\Message\UriInterface;
 use Shrikeh\App\Message\Correlated;
-use Shrikeh\App\Message\Correlation;
 use Shrikeh\App\Message\Result;
 use TicketTailor\TechnicalTest\Webhooks;
 
