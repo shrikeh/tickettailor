@@ -7,9 +7,19 @@
 The entire demo is designed to work within a Docker container to avoid using system PHP and PECL requirements.
 
 ## Composer Token
-It is very bad practice to leave an `auth.json` file around, but solving how to create this easily for a technical test in three hours is tricky. This one is good for 48 hours. Be nice.
-If it stops working for any reason, please create a new token at https://github.com/settings/tokens/new?scopes=&description=Barney+T4 and then change the contents of auth.json
+Visit https://github.com/settings/tokens/new and create a new Github token with public repo rights.
+Create a file called `auth.json` in the repo root with the following contents:
+(@todo: solve this requirement).
 
+```json
+{
+  "github-oauth": {
+    "github.com": "TOKEN"
+  }
+}
+
+
+```
 ## Running the app
 The easiest way to run the app is with the command `make run`. You can achieve the same with `docker compose up`.
 
