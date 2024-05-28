@@ -20,5 +20,6 @@ final class WebhooksFileTest extends TestCase
         $uris = iterator_to_array($webhooksFileRepository->fetchOutstandingNotifications()->webhooks());
 
         $this->assertCount(10, $uris);
+        $this->assertSame([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], array_keys($uris));
     }
 }

@@ -43,3 +43,7 @@ init: .init example
 test:  .test
 quality: .test-env .quality
 craft: .crafting .craft
+
+run:
+	$(info [+] Make: Running command `ticket-tailor:webhooks:call` inside Docker container)
+	docker compose run "${APP_CONTAINER}";

@@ -59,4 +59,5 @@ RUN pecl install xdebug
 RUN apk add git
 RUN docker-php-ext-enable xdebug
 RUN ${LOCAL_BIN_PATH}/composer install
-ENTRYPOINT ${LOCAL_BIN_PATH}/composer test
+
+ENTRYPOINT app/bin/console ticket-tailor:webhooks:call

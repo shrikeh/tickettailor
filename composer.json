@@ -80,6 +80,9 @@
     }
   },
   "scripts": {
+    "run": [
+      "app/bin/console ticket-tailor:webhooks:call"
+    ],
     "post-install-cmd": [
       "@install-codestandards"
     ],

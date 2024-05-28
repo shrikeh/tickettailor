@@ -27,7 +27,7 @@ final class CallOutstandingWebhooksTest extends TestCase
         $output = $this->prophesize(OutputInterface::class)->reveal();
         $inputCommandFactory = $this->prophesize(InputCommandFactory::class);
         $command = CallOutstandingWebhooksCommand::init();
-        $result = $this->prophesize(OutstandingWebhooksCalled::class)->reveal();
+        $result = new OutstandingWebhooksCalled([]);
         $inputCommandFactory->create($input, $output)->willReturn($command);
 
         $commandBus = $this->prophesize(CommandBus::class);

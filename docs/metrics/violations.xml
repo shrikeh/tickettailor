@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="@package_version@" timestamp="2024-05-28T09:04:07+00:00">
+  <file name="App\Result\">
+    <violation beginline="1" rule="Stable Abstractions Principle" ruleset="Stable Abstractions Principle" externalInfoUrl="http://www.phpmetrics.org/documentation/index.html" priority="3">Packages should be either abstract and stable or concrete and instable.
+
+This package is instable and abstract.</violation>
+  </file>
+  <file name="App\Traits\">
+    <violation beginline="1" rule="Stable Abstractions Principle" ruleset="Stable Abstractions Principle" externalInfoUrl="http://www.phpmetrics.org/documentation/index.html" priority="3">Packages should be either abstract and stable or concrete and instable.
+
+This package is instable and abstract.</violation>
+  </file>
+  <file name="TicketTailor\TechnicalTest\">
+    <violation beginline="1" rule="Stable Dependencies Principle" ruleset="Stable Dependencies Principle" externalInfoUrl="http://www.phpmetrics.org/documentation/index.html" priority="3">Packages should depend in the direction of stability.
+
+This package is more stable (0.167) than 1 package(s) that it depends on.
+The packages that are more stable are
+
+* TicketTailor\TechnicalTest\CustomerNotifications (0.333)</violation>
+  </file>
+</pmd>
