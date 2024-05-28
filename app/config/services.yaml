@@ -4,17 +4,51 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+  'app.webhooks.file.path': '%kernel.project_dir%/data/webhooks.txt'
 
 services:
     # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  _defaults:
+      autowire: true      # Automatically injects dependencies in your services.
+      autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    Api\:
-        resource: '%kernel.project_dir%/src/Api'
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: '%kernel.project_dir%/src/App'
+  Infra\:
+    resource: '%kernel.project_dir%/src/Infra'
+  TicketTailor\TechnicalTest\:
+    resource: '%kernel.project_dir%/src/TechnicalTest'
+  Api\:
+    resource: '%kernel.project_dir%/src/Api'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  Shrikeh\App\Bus\SymfonyCommandBus: ~
+  Shrikeh\App\Bus\SymfonyQueryBus: ~
+  
+  Shrikeh\App\Logger\Psr3AppLogger: ~
+  Shrikeh\App\Log: '@Shrikeh\App\Logger\Psr3AppLogger'
+  
+  Shrikeh\App\Bus\MessageBus: '@Shrikeh\App\Bus\CorrelatingMessageBus'
+  Shrikeh\App\Command\CommandBus: '@Shrikeh\App\Bus\SymfonyCommandBus'
+  Shrikeh\App\Query\QueryBus: '@Shrikeh\App\Bus\SymfonyQueryBus'
+  
+  Shrikeh\App\Bus\CorrelatingMessageBus: ~
+  
+          
+  Infra\Repository\WebhooksFile:
+    arguments:
+      - '@app.webhooks.file'
+          
+  app.webhooks.file:
+    class: SplFileInfo
+    arguments:
+      - '%app.webhooks.file.path%'
+
+  _instanceof:
+    Shrikeh\App\Query\QueryHandler:
+      tags:
+        - { name: messenger.message_handler, bus: 'query.bus' }
+    Shrikeh\App\Command\CommandHandler:
+      tags:
+        - { name: messenger.message_handler, bus: 'command.bus' }  

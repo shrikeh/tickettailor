@@ -4,7 +4,7 @@ includes:  #  directory and files to analyze, relative to config file directory
   - "app/src/App"
   - "app/src/Api"
   - "app/src/Infra"
-  - "app/src/Domain"
+  - "app/src/TechnicalTest"
 excludes: # regex of files (or directory) to exclude from analyze
   - tests
 extensions: # default: ["php", "inc"]

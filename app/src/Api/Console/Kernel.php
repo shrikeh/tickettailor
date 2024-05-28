@@ -7,6 +7,9 @@ namespace Api\Console;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
@@ -15,4 +18,5 @@ final class Kernel extends BaseKernel
     {
         return dirname(__DIR__, 3);
     }
+
 }

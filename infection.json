@@ -2,10 +2,13 @@
   "$schema": "vendor/infection/infection/resources/schema.json",
   "source": {
     "directories": [
-      "src/Api",
-      "src/App",
-      "src/Infra",
-      "src/Domain"
+      "app/src/Api",
+      "app/src/App",
+      "app/src/Infra",
+      "app/src/TechnicalTest"
+    ],
+    "excludes": [
+      "Console/Kernel"
     ]
   },
   "logs": {
