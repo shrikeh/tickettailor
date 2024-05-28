@@ -28,7 +28,7 @@ ADD ./composer.lock ./
 ADD ./app ./app
 ADD ./auth.json ./
 
-RUN ${LOCAL_BIN_PATH}/composer install --no-dev
+RUN ${LOCAL_BIN_PATH}/composer install --no-dev --no-interaction --verbose --prefer-dist
 
 # Copy only the files from before, leaving before dependencies such as composer and git
 FROM base as app
@@ -53,11 +53,14 @@ RUN composer validate
 RUN chown -R www-data:www-data /shrikeh
 
 FROM app as dev
+
 ENV XDEBUG_MODE=coverage
-RUN apk add --update linux-headers
+WORKDIR /shrikeh
+RUN apk add git linux-headers
+
+RUN /usr/local/bin/composer install --no-interaction --ignore-platform-req=ext-xdebug --verbose --prefer-dist --no-scripts
+
 RUN pecl install xdebug
-RUN apk add git
 RUN docker-php-ext-enable xdebug
-RUN ${LOCAL_BIN_PATH}/composer install
 
 ENTRYPOINT app/bin/console ticket-tailor:webhooks:call

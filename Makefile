@@ -44,6 +44,6 @@ test:  .test
 quality: .test-env .quality
 craft: .crafting .craft
 
-run:
+run: install
 	$(info [+] Make: Running command `ticket-tailor:webhooks:call` inside Docker container)
 	docker compose run --rm "${APP_CONTAINER}";
